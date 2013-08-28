@@ -1,0 +1,162 @@
+* {
+    padding:0;
+    margin:0;
+}
+
+
+.clock {
+    width: 100%;
+    height: 0px;
+    margin: 20px auto 0 auto;
+    background: #F6F6F6;
+    text-align: center;
+}
+.clock .container {
+    display: none;
+}
+
+.clock h2.desc {
+    font: 100 22px Arial, Helvetica, sans-serif;
+    color: #cccccc;
+    line-height: 60px;
+}
+.EventDate {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.EventDate p {
+    display: inline;
+    color: #888;
+    font: 100 18px Arial, Helvetica, sans-serif;
+    line-height: 50px;
+}
+
+.clock_years,
+.clock_months,
+.clock_days,
+.clock_hours,
+.clock_minutes,
+.clock_seconds {
+    width: 16.66%;
+    float: left;
+}
+
+.bgLayer {
+    width: 150px;
+    margin: 0 auto;
+    background: url(img/bg.png); 
+    background-repeat:no-repeat;
+    position:relative;
+
+}
+
+.topLayer { 
+    position:absolute; 
+    /*background-image:url(img/~top.png);*/
+    width:150px;
+    height:150px;
+    background-repeat:no-repeat;
+}
+
+.text { position:absolute; top:27px; left:25px; width:100px;  height:100px;}
+
+.val {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:37px;
+    font-weight: normal;
+    color:#A0A0A0;
+    text-align:center;
+    line-height: 50px;
+    margin-top:15px;
+    width:100px;
+}
+.type_years {
+    font-family: Arial, Helvetica, sans-serif;
+    color:#FFA3F2;
+    width:100px;
+    text-align:center;
+    font-size:13px;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+.type_months{
+    font-family: Arial, Helvetica, sans-serif;
+    color:#B096FF;
+    width:100px;
+    text-align:center;
+    font-size:13px;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+.type_days {
+    font-family: Arial, Helvetica, sans-serif;
+    color:#ff6565;
+    width:100px;
+    text-align:center;
+    font-size:13px;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.type_hours {
+    font-family: Arial, Helvetica, sans-serif;
+    color:#378cff;
+    width:100px;
+    text-align:center;
+    font-size:13px;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.type_minutes {
+    font-family: Arial, Helvetica, sans-serif;
+    color:#9cdb7d;
+    width:100px;
+    text-align:center;
+    font-size:13px;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.type_seconds {
+    font-family: Arial, Helvetica, sans-serif;
+    color:#ffdc50;
+    width:100px;
+    text-align:center;
+    font-size:13px;
+    line-height:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+.divider {
+	width:960px;
+	height:71px;
+	background-image:url(img/diviers.png);
+	float:left;
+	margin-top:50px;
+}
+
+.divider p { 
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:14px; 
+	color:#b6b6b6; 
+	line-height:70px;
+	text-align:center;
+}
+
+.divider a {
+	color:#39F;
+	text-decoration:none;
+}
+
+.divider a:hover {
+	color:#FFF;
+}
