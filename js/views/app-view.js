@@ -158,12 +158,13 @@ var app = app || {};
         },
 
         ganttRender: function () {
+            var sources = new Array({values: [{from: '/Date(1377561600000)/', to: '/Date(1388534400000)/', label: 'Новый год (Это пример события, кликните по нему для отображения счетчика)', customClass: 'ganttGreen'+' num0'}]});
+
             function GetGanttData (key) {
-                var sources = new Array();
                 var gantt_colors = ['ganttRed', 'ganttGreen', 'ganttBlue', 'ganttOrange', 'ganttPink', 'ganttYel', 'ganttAqua', 'ganttDarkGreen'];
                 for (var val= 0; val<app.todos.models.length; val++) {
 
-                    var num_color = Math.floor(Math.random() *gantt_colors.length); //alert(num_color);
+                    var num_color = Math.floor(Math.random()*gantt_colors.length); //alert(num_color);
                     sources[val] = {
                         values: [{
                             from: '/Date('+app.todos.models[val].get('createDate')+')/',
@@ -173,64 +174,72 @@ var app = app || {};
                         }]
                     };
                     gantt_colors.splice(num_color, 1);
-                    //alert(JSON.stringify(gantt_colors));
                 }
-                //console.log(JSON.stringify(sources));
                 return sources;
             }
 
+            if(sources[0].values.to != '') {
+                this.$gantt.gantt({
+                    source: GetGanttData(app.todos.models),
+                    navigate: "scroll",
+                    maxScale: "hours",
+                    itemsPerPage: 10,
+                    onItemClick: function(data) {
+                        //alert("Item clicked - show some details");
+                        $(function () {
+                            var num = data.slice(data.length-1, data.length);
+                            var sources = GetGanttData(app.todos.models);
+                            var NowTime = new Date().getTime();
+                            var LeftTime = (sources[num].values[0].to);
+                            var Desc = (sources[num].values[0].label);
 
-            this.$gantt.gantt({
-                source: GetGanttData(app.todos.models),
-                navigate: "scroll",
-                maxScale: "hours",
-                itemsPerPage: 10,
-                onItemClick: function(data) {
-                    //alert("Item clicked - show some details");
-                    $(function () {
-                        var num = data.slice(data.length-1, data.length);
-                        var sources = GetGanttData(app.todos.models);
-                        var NowTime = new Date().getTime();
-                        var LeftTime = (sources[num].values[0].to);
-                        var Desc = (sources[num].values[0].label);
+                            LeftTime = Number(LeftTime.slice(6, LeftTime.length-2))/1000;
+                            var NowGMT = 3600*(new Date().getTimezoneOffset()/60);
+                            NowTime = (Number(NowTime)/1000)-NowGMT;
 
-                        LeftTime = Number(LeftTime.slice(6, LeftTime.length-2))/1000;
-                        var NowGMT = 3600*(new Date().getTimezoneOffset()/60);
-                        NowTime = (Number(NowTime)/1000)-NowGMT;
+                            var DescDate = (new Date(LeftTime*1000).getDate())+'.'+
+                                (new Date(LeftTime*1000).getMonth()+1)+'.'+
+                                (new Date(LeftTime*1000).getFullYear())+' в '+
+                                (new Date(LeftTime*1000).getHours()-6)+':'+
+                                (new Date(LeftTime*1000).getMinutes())+':'+
+                                (new Date(LeftTime*1000).getSeconds());
 
-                        //LeftTime = new Date(LeftTime);
-                        //console.log(num, LeftTime, NowTime, NowGMT, Desc);
-                        $('.clock .container h2').html('Событие <span class="eventName">&laquo;'+Desc+'&raquo;</span> наступит через:');
-                        $('.EventDate p').text(new Date(LeftTime*1000).toGMTString());
+                            //console.log(DescDate);
+                            //LeftTime = new Date(LeftTime);
+                            //console.log(num, LeftTime, NowTime, NowGMT, Desc);
+                            $('.clock .container h2').html('Событие <span class="eventName">&laquo;'+Desc+'&raquo;</span> наступит через:');
+                            //$('.EventDate p').text(new Date(LeftTime*1000).toGMTString());
+                            $('.EventDate p').text(DescDate);
 
-                        $('.clock').animate({height: '280px'}, 1000);
-                        $('.clock .container').show();
+                            $('.clock').animate({height: '280px'}, 1000);
+                            $('.clock .container').show();
 
-                        JBCountDown({
-                            startDate: '',
-                            endDate: LeftTime,
-                            nowDate: NowTime
-                        });
+                            JBCountDown({
+                                startDate: '',
+                                endDate: LeftTime,
+                                nowDate: NowTime
+                            });
 //                        $('#Countdown').countdown({until: LeftTime, format: 'YODHMS', description: Desc});
 //                        $('#Countdown').countdown('option', {until: LeftTime, description: Desc});
 
-                    });
-                },
-                onAddClick: function(dt, rowId) {
-                    alert("Empty space clicked - add an item!");
-                },
-                onRender: function() {
-                    $('.wall').height(function(i, val){
-                        return $('.gantt').height()
-                    });
-                    $('.fn-gantt .today .line').height(function(i, val){
-                        return $('.gantt').height()
-                    });
+                        });
+                    },
+                    onAddClick: function(dt, rowId) {
+                        alert("Empty space clicked - add an item!");
+                    },
+                    onRender: function() {
+                        $('.wall').height(function(i, val){
+                            return $('.gantt').height()
+                        });
+                        $('.fn-gantt .today .line').height(function(i, val){
+                            return $('.gantt').height()
+                        });
 //                        if (window.console && typeof console.log === "function") {
 //                            console.log("chart rendered");
 //                        }
-                }
-            });
+                    }
+                });
+            } else {return}
         }
 
 
